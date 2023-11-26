@@ -5,7 +5,7 @@ from datetime import datetime
 
 def get_data():
     """Получаем данные из файла"""
-    with open('operations.json', 'r', encoding='utf-8') as file:
+    with open('D:\py.projects\KP3\operations.json', 'r', encoding='utf-8') as file:
         data = json.load(file)
         return data
 
@@ -25,23 +25,35 @@ def get_last_values(data, count_last_values):
 
 def get_formatted_data(data):
     """Форматирует и выводит список строк в требуемом формате """
-    formatted_data = []
     for row in data:
-        print(row['date'])
-        date = datetime.strptime(row["date"], __format="%Y-%m-%dT%H:%M:%S.%f").strftime("%d.%m.%Y")
-        print(date)
+        date = datetime.strptime(row["date"], "%Y-%m-%dT%H:%M:%S.%f").strftime("%d.%m.%Y")
+        row['date'] = date
+    return data
+
+def mask_credit_card(card_number):
+    visible_diggets = card_number[:6] + card_number[-4:]
+    masked_card_number = ' '.join([visible_diggets[:4], visible_diggets[4:6], '** ', '****', visible_diggets[-4:]])
+    return masked_card_number
+
+def hidden_card(data):
+    for row in data:
+        card_number = row.get('from', '').split()
+        if len(card_number) == 2:
+            row['from'] = card_number[0] + ' ' +  mask_credit_card(card_number[1])
+        if len(card_number) == 3:
+            row['from'] = card_number[0] + ' ' + card_number[1] + ' ' + mask_credit_card(card_number[2])
+    return data
+
+def hidden_score(data):
+    for row in data:
+        score = row.get('to', '').split()
+        if len(score) == 2:
+            row['to'] = score[0] + ' **' + score[1][-4:]
+        if len(score) == 3:
+            row['to'] = score[0] + score[1] + ' **' + score[2][-4:]
+    return data
 
 
-
-
-
-        #data_split = date.split()#Здесь происходит разделение строки на слова по пробелам
-
-        # num_list = [int(num) for num in filter(
-           # lambda num: num.isnumeric(), data_split)] # проверяет слова, и список слов, с помощью генератора списка строки преобразовываются в целочисленный тип.
-
-
-       # num = [int(i) for i in a if i.isdigit()]
 
 
 
