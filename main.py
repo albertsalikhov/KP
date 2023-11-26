@@ -12,7 +12,9 @@ def main():
     data = hidden_score(data)
     print('INFO: вывод транзакций...')
     for row in data:
-        print(row, end='/n/n')
+        data = row['operationAmount']
+        data_r = data["currency"]
+        print(f"{row['date']} {row['description']}\n{row['to']}{' ->'} {row['to']}\n{data['amount']} {data_r['name']}")
 
 
 if __name__ == '__main__':
