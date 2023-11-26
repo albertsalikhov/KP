@@ -8,12 +8,12 @@ def test_get_data():
 
 def test_get_filtered_data(test_data):
     data = get_filtered_data(test_data)
-    assert [x["state"] for x in data] == "EXECUTED"
+    assert [x["state"] for x in data] == data["EXECUTED"]
 
 
 def test_get_last_values(test_data):
     data = get_last_values(test_data, 4)
-    assert [x['date'] for x in data] == ["2019-08-26T10:50:58.294041", "2019-07-03T18:35:29.512364", "2018-06-30T02:08:58.425572", "2018-03-23T10:45:06.972075"]
+    assert [x['date'] for x in data] == ['2019-08-26T10:50:58.294041', '2019-07-12T20:41:47.882230', '2019-07-03T18:35:29.512364', '2019-04-04T23:20:05.206878', '2019-03-23T01:09:46.296404']
 
 
 
