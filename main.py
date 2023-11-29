@@ -14,7 +14,10 @@ def main():
     for row in data:
         data = row['operationAmount']
         data_r = data["currency"]
-        print(f"{row['date']} {row['description']}\n{row['to']}{' ->'} {row['to']}\n{data['amount']} {data_r['name']}")
+        if row.get('from') == None:
+            print(f"{row['date']} {row['description']}\n{row['to']}\n{data['amount']} {data_r['name']}")
+        else:
+            print(f"{row['date']} {row['description']}\n{row.get('from')} {' ->'} {row['to']}\n{data['amount']} {data_r['name']}")
 
 
 if __name__ == '__main__':
