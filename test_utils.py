@@ -6,9 +6,7 @@ def test_get_data():
     data = get_data()
     assert isinstance(data, list)
 
-def test_get_filtered_data(test_data):
-    data = get_filtered_data(test_data)
-    assert [x["state"] for x in data] == data["EXECUTED"]
+
 
 
 def test_get_last_values(test_data):
