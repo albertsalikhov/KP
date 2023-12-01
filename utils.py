@@ -45,6 +45,7 @@ def hidden_card(data):
     return data
 
 def hidden_score(data):
+    """Выводит в необходимом формате номер счета """
     for row in data:
         score = row.get('to', '').split()
         if len(score) == 2:
