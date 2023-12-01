@@ -2,6 +2,8 @@ import json
 
 from datetime import datetime
 
+amount_of_elements_1 = 2
+amount_of_elements_2 = 3
 
 def get_data():
     """Получаем данные из файла"""
@@ -38,18 +40,20 @@ def mask_credit_card(card_number):
 def hidden_card(data):
     for row in data:
         card_number = row.get('from', '').split()
-        if len(card_number) == 2:
+        if len(card_number) == amount_of_elements_1:
             row['from'] = card_number[0] + ' ' +  mask_credit_card(card_number[1])
-        if len(card_number) == 3:
+        if len(card_number) == amount_of_elements_2:
             row['from'] = card_number[0] + ' ' + card_number[1] + ' ' + mask_credit_card(card_number[2])
     return data
 
+
 def hidden_score(data):
+    """Выводит в необходимом формате номер счета """
     for row in data:
         score = row.get('to', '').split()
-        if len(score) == 2:
+        if len(score) == amount_of_elements_1:
             row['to'] = score[0] + ' **' + score[1][-4:]
-        if len(score) == 3:
+        if len(score) == amount_of_elements_2:
             row['to'] = score[0] + score[1] + ' **' + score[2][-4:]
     return data
 
